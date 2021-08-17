@@ -1,0 +1,29 @@
+.book-cover-placeholder {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 13rem;
+  height: 20rem;
+  background-color: #ccc;
+
+  &.large {
+    height: 25rem;
+    width: 20rem;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    width: 80%;
+    height: 90%;
+    border: solid 1px #fff;
+  }
+}

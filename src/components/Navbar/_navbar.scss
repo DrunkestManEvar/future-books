@@ -1,0 +1,28 @@
+.navbar {
+  position: sticky;
+  height: 10rem;
+  box-shadow: 0 0.5rem 1rem #ccc;
+
+  &__center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  &__logo {
+    max-height: 10rem;
+  }
+
+  .hamburger-react {
+    display: none;
+
+    @media only screen and (max-width: 43.75em) {
+      position: relative;
+      z-index: 101;
+      display: block;
+    }
+  }
+}

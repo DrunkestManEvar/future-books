@@ -1,0 +1,42 @@
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: $border-radius--small;
+  border: solid 1px #222;
+  font-family: inherit;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #222;
+    color: #fff;
+  }
+
+  &_primary {
+    padding: 0.5rem 2rem;
+    border-radius: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    background-color: #222;
+    color: #fff;
+
+    &:hover {
+      background-color: #fff;
+      color: #222;
+    }
+  }
+
+  &_close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: none;
+
+    svg {
+      margin: 0;
+      font-size: 2rem;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.load-more-button {
+  display: none;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  border: none;
+  font-weight: bold;
+  letter-spacing: .1rem;
+  border-radius: $border-radius--large;
+  background-color: rgba(royalblue, .8);
+  color: #fff;
+  cursor: pointer;
+
+  &--shown {
+    display: block;
+  }
+}

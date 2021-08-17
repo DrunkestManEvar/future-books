@@ -1,0 +1,14 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  padding: 5rem 2rem;
+  background-color: #fff;
+  border-radius: $border-radius--medium;
+  border: solid 1px #222;
+  min-width: 50rem;
+  min-height: 20rem;
+}

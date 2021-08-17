@@ -1,0 +1,17 @@
+.input {
+  flex: 1;
+  padding: 1rem 2rem;
+  border: solid 1px #685454;
+  background: none;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0.5rem 1rem #ccc;
+    transform: translateY(-2px);
+  }
+
+  &::placeholder {
+    text-transform: uppercase;
+  }
+}
