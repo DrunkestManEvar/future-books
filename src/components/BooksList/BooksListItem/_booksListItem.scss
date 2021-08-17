@@ -12,10 +12,11 @@
   perspective: 90em;
 
   &__book-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     letter-spacing: 0.1rem;
 
-    @media only screen and (max-width: 53.125em) {
+    @media only screen and (max-width: 767px) {
+      font-size: 1.2rem;
       margin-top: 0;
       text-align: center;
     }
@@ -23,6 +24,10 @@
 
   &__book-authors {
     margin-bottom: 1rem;
+
+    @media only screen and (max-width: 767px) {
+      font-size: 1rem;
+    }
   }
 
   &__book-author {
@@ -31,7 +36,7 @@
 
   &__book-category {
     display: inline-block;
-    padding: .2rem .5rem;
+    padding: 0.2rem 0.5rem;
     font-size: 1rem;
     background-color: #ccc;
     border-radius: $border-radius--medium;

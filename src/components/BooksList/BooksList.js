@@ -3,26 +3,27 @@ import BooksListItem from 'components/BooksList/BooksListItem/BooksListItem';
 import Spinner from 'components/general/Spinner/Spinner';
 import LoadMoreButton from 'components/general/LoadMoreButton/LoadMoreButton';
 
-const BooksList = ({ bookTitle, firstBookIndex, handleSetFirstBookIndex }) => {
+const BooksList = ({ bookTitle, firstBookIndex, handleSetFirstBookIndex, selectedCategory, selectedSortBy }) => {
   const books = useSelector(state => state.books.books);
   const booksStatus = useSelector(state => state.books.status);
-  const booksFound = useSelector(state => state.books.booksFound)
+  const booksFound = useSelector(state => state.books.booksFound);
+  const newBooksBatchFound = useSelector(state => state.books.newBooksBatchFound);
 
   let content;
 
   if (booksStatus === 'loadingFull') return <div className='books-list__spinner-container'><Spinner /></div>;
 
-  if (!books.length && booksStatus !== 'loading')
+  if (!booksFound && booksStatus !== 'loadingFull')
     content = (
       <h3>
         No books have been found :( Please check if the book title is correct.
       </h3>
     );
 
-  if (!books.length && booksStatus === 'init')
+  if (!booksFound && booksStatus === 'init')
     content = <h3>Enter a book title to find books!</h3>;
 
-  if (books.length) {
+  if (booksFound) {
     content = (
       <>
       <h3>Book entries found: {booksFound}</h3>
@@ -50,8 +51,9 @@ const BooksList = ({ bookTitle, firstBookIndex, handleSetFirstBookIndex }) => {
       })}
       </>
     )
-    
   }
+
+  const shouldLoadMoreBeDisabled = (books && books.length >= booksFound) || !newBooksBatchFound;
 
   return (
     <>
@@ -59,7 +61,7 @@ const BooksList = ({ bookTitle, firstBookIndex, handleSetFirstBookIndex }) => {
         {content}
         {booksStatus === 'loadingPartial' && <div className='books-list__spinner-container'><Spinner /></div>}
         </section>
-      <LoadMoreButton bookTitle={bookTitle} firstBookIndex={firstBookIndex} handleSetFirstBookIndex={handleSetFirstBookIndex} isShown={books.length} />
+      <LoadMoreButton bookTitle={bookTitle} firstBookIndex={firstBookIndex} handleSetFirstBookIndex={handleSetFirstBookIndex} selectedCategory={selectedCategory} selectedSortBy={selectedSortBy} isShown={booksFound} isDisabled={shouldLoadMoreBeDisabled} />
     </>
   );
 };

@@ -7,20 +7,28 @@ const initialState = {
   bookTitleQuery: '',
   books: [],
   booksFound: 0,
+  newBooksBatchFound: 0,
   status: 'init',
   error: null,
 };
 
 const getBooks = async (query) => {
   try {
-    const { bookTitleQuery, firstBookIndex } = query;
-    const response = await axios.get(
-      `https://www.googleapis.com/books/v1/volumes?q=intitle:${bookTitleQuery}&printType=books&startIndex=${firstBookIndex}&maxResults=30&key=${API_KEY}`
+    const { bookTitleQuery, firstBookIndex, category, sortBy } = query;
+    const subjectQuery = category !== 'all' ? `+subject:${category}` : '';
+    
+    const response = await axios.get(   
+      `https://www.googleapis.com/books/v1/volumes?q=intitle:${bookTitleQuery}${subjectQuery}&printType=books&startIndex=${firstBookIndex}&orderBy=${sortBy}&maxResults=30&key=${API_KEY}`
     );
+    const booksResponse = await response.data.items;
 
-    const books = await response.data.items.map(item => ({id: item.id, ...item.volumeInfo}));
+    if (!booksResponse) {
+      return { books: [], booksFound: 0, newBooksBatchFound: 0 };
+    }
+
+    const books = booksResponse.map(item => ({id: item.id, ...item.volumeInfo}));
     const booksFound = response.data.totalItems;
-    return {books, booksFound};
+    return { books, booksFound, newBooksBatchFound: books.length };
   } catch (error) {
     return error;
   }
@@ -48,6 +56,7 @@ const booksSlice = createSlice({
     [fetchBooks.fulfilled]: (state, action) => {
       state.books = action.payload.books;
       state.booksFound = action.payload.booksFound;
+      state.newBooksBatchFound = action.payload.newBooksBatchFound;
       state.status = 'idle';
       state.error = null;
     },
@@ -60,6 +69,7 @@ const booksSlice = createSlice({
     },
     [fetchMoreBooks.fulfilled]: (state, action) => {
       state.books = [...current(state.books), ...action.payload.books];
+      state.newBooksBatchFound = action.payload.newBooksBatchFound;
       state.status = 'idle';
       state.error = null;
     },

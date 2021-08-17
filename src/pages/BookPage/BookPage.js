@@ -21,23 +21,24 @@ const BookPage = props => {
   if (bookError) return <ErrorPage />;
 
   const bookCoverSrc = book.cover.thumbnail || book.cover.smallThumbnail;
-
   const bookCover = bookCoverSrc ? <img src={bookCoverSrc} alt={`${book.title} cover`} /> : <BookCoverPlaceholder />
 
   return (
-    <article className="page page--book">
-      <div className='book'>
-        <div className='book__cover-container'>
-          {bookCover}
+    <>
+      <article className="page page--book">
+        <div className='book'>
+          <div className='book__cover-container'>
+            {bookCover}
+          </div>
+          <div className='book__info'>
+            <h3 className='book__title'>{book.title}</h3>
+            <div className='book__authors'>{book.authors.map((author, index) => <span key={`author-${index}`} className='book__author'>{author}</span>)}</div>
+            <div className='book__categories'>{book.categories.map((category, index) => <span key={`category-${index}`} className='book__category'>{category}</span>)}</div>
+            <div className='book__description'>{book.description}</div>
+          </div>
         </div>
-        <div className='book__info'>
-          <h3 className='book__title'>{book.title}</h3>
-          <div className='book__authors'>{book.authors.map((author, index) => <span key={`author-${index}`} className='book__author'>{author}</span>)}</div>
-          <div className='book__categories'>{book.categories.map((category, index) => <span key={`category-${index}`} className='book__category'>{category}</span>)}</div>
-          <div className='book__description'>{book.description}</div>
-        </div>
-      </div>
-    </article>
+      </article>
+    </>
   );
 };
 
